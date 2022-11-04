@@ -34,6 +34,11 @@
     "textSearchHint": "Just start typing here...",
     "@textSearchHint": {
         "description": ""
+    },
+
+    "textNetError": "Someting went wrong :(",
+    "@textNetError": {
+        "description": ""
     }
 
 }

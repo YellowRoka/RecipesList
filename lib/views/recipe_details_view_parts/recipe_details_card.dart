@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/state_manager_bloc.dart';
 import '../../data_model/recipe_details.dart';
+import '../common_parts/theme.dart';
 import 'recipe_details_head.dart';
 import 'recipe_details_ingredients_field.dart';
 import 'recipe_details_line.dart';
@@ -53,7 +54,7 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
 
     return 
       ( isLoading  )?
-      ( const CircularProgressIndicator() ):
+      ( const CircularProgressIndicator( color: colorTheme1 ) ):
       ( 
         Column(
           children: [

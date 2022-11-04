@@ -24,7 +24,7 @@ class AppBarHandler extends StatelessWidget {
             isSearchActive = true;
         }
 
-        if( state is SMSBack ){
+        if( state is SMSBack  || state is SMSInit){
           isSearchActive = false;
         }
 

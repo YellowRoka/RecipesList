@@ -45,3 +45,7 @@ class SMSSearch extends StateManagerState{
 class SMSOpenSearchBar extends StateManagerState{
   const SMSOpenSearchBar();
 }
+
+class SMSNetError extends StateManagerState{
+  const SMSNetError();
+}

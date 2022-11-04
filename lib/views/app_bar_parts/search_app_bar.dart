@@ -59,7 +59,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
           Container(
             padding: const EdgeInsets.fromLTRB( 1, 1, 10, 1 ),
-            width:   330,
+            width:   MediaQuery.of(context).size.width * 0.85,
             height:  56,
             child:   TextField( 
               style:       textStyleBase,

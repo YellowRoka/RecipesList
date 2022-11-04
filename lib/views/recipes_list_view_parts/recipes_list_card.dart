@@ -44,19 +44,21 @@ class _RecipesCardsState extends State< RecipesCards >{
 
   @override
   Widget build( BuildContext context ){
+    final Size size = MediaQuery.of(context).size;
 
     return SizedBox(
       height: 0.0 + imageHeight * 0.35,
       width:  MediaQuery.of( context ).size.width,
       child: 
-      ( isLoading                         )?
-      ( const CircularProgressIndicator() ):
+      ( isLoading                                             )?
+      ( const CircularProgressIndicator( color: colorTheme1 ) ):
       ( 
         GestureDetector(
           onTap: () => BlocProvider.of< StateManagerBloc >( context ).add( SMERecipeSelect( widget.recipe!.id ) ),
           child: ( 
             Stack(
-              children: [
+              alignment: ( size.width > size.height )?( AlignmentDirectional.center ):( AlignmentDirectional.topStart ),
+              children:  [
         
                 SizedBox(
                   height: imageHeight * 0.35,

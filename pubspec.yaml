@@ -52,6 +52,9 @@ dependencies:
   get_it: ^7.2.0
   path_provider: any #^2.0.11
 
+  flutter_exit_app: ^1.0.4
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

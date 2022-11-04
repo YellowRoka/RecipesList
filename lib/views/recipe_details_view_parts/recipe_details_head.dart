@@ -47,6 +47,7 @@ class DetailsHead extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB( 20, 0, 0, 20 ),
         width:   MediaQuery.of( context ).size.width * 0.60, 
         child:   Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
             _recipeName(),

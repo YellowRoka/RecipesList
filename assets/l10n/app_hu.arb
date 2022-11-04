@@ -1,13 +1,13 @@
 {
     "@@local": "hu",
 
-
     "textBreakfast": "Reggeli",
     "textKcal": "kcal",
     "textMinutes": "perc",
     "textIngredients": "Hozzávalók",
     "textingredients": "hozzávalók",
     "textPreparation": "Elkészítés",
-    "textSearchHint": "Kezdj el írni..."
+    "textSearchHint": "Kezdj el írni...",
+    "textNetError": "Valami hiba történt :("
 
 }
