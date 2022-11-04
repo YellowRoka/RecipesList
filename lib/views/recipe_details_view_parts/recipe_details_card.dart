@@ -30,7 +30,7 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
     imageHeight = 0;
     isLoading   = true;
 
-    image = Image.network(widget.recipeDetails!.imageUrl, fit: BoxFit.fill);
+    image = Image.network( widget.recipeDetails!.imageUrl, fit: BoxFit.fill );
 
     image.image
       .resolve( const ImageConfiguration() )
@@ -51,13 +51,7 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
   Widget build( BuildContext context ){
 
 
-    return WillPopScope(
-      onWillPop: () async {
-        BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack() );
-        return false;
-      },
-
-      child: 
+    return 
       ( isLoading  )?
       ( const CircularProgressIndicator() ):
       ( 
@@ -75,8 +69,6 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
             PreparationField( steps:         widget.recipeDetails!.steps,       localizations: widget.localizations )
           ],
         )
-      )
-
-    );
+      );
   }
 }

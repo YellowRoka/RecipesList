@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'di/inject.dart';
 import 'views/app_bar_parts/app_bar_handler.dart';
 import 'views/common_parts/body_builder.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-void main() => runApp( const MyApp() );
+void main() async {
+  await configureDependencies();
+  runApp( const MyApp() );
+} 
 
 
 class MyApp extends StatelessWidget {
@@ -18,7 +22,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider<StateManagerBloc>(
-      create: (context) => StateManagerBloc()..add( const SMEInit() ),
+      //create: (context) => StateManagerBloc()..add( const SMEInit() ),
+      create: (context) => getIt<StateManagerBloc>(),
       child:  MaterialApp(
         debugShowCheckedModeBanner: false,
 
@@ -37,14 +42,22 @@ class MyApp extends StatelessWidget {
         title: 'Recipe View',
         home:  Builder(
           builder: ( context ){
+            context.read<StateManagerBloc>().add( const SMEInit() );
             final AppLocalizations localizations = AppLocalizations.of(context)!;
 
             return Scaffold(
-              body: CustomScrollView(
-                slivers:[
-                  AppBarHandler( localizations: localizations ),
-                  BodyBuilder(   localizations: localizations )
-                ],
+              body: WillPopScope(
+                onWillPop: () async {
+                  BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack( /*false*/ ) );
+                  return false;//widget.canExit;
+                },
+
+                child: CustomScrollView(
+                  slivers:[
+                    AppBarHandler( localizations: localizations ),
+                    BodyBuilder(   localizations: localizations )
+                  ],
+                ),
               )
             );
           }

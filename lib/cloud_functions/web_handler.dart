@@ -1,29 +1,31 @@
 import 'package:dio/dio.dart';
+import 'package:ff_recept/cloud_functions/web_handler_injectable.dart';
 import 'package:ff_recept/data_model/recipe_details.dart';
 import 'package:ff_recept/data_model/recipes.dart';
+import 'package:injectable/injectable.dart';
+
+import '../di/module/dio_module.dart';
 
 abstract class WebServiceInterface{
   Future< JSONRecipeDetails > getReceptdetails( int id );
   Future< JSONRecipes >       getreceptList();
 }
 
+@injectable
 class WebServiceHandler extends WebServiceInterface{
 
-  final Dio dio = Dio();
+  DioInjectable dioInjectable;
+  late Dio dio;
 
-  WebServiceHandler(){
-    _initWebHandler();
+  WebServiceHandler( this.dioInjectable ){
+    dio = DioInjectable().dio;
   }
-  
-  void _initWebHandler(){
-    dio.options.baseUrl = "https://familyfinancestest-f8319-default-rtdb.firebaseio.com/";
-  }
-  
+
   @override
   Future<JSONRecipeDetails> getReceptdetails(int id) async {
     var requestResponse = await dio.get(
       "recipe_detail/$id.json",
-      onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }
+      /*onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }*/
     );
 
     return JSONRecipeDetails.fromJson(requestResponse.data);
@@ -33,7 +35,7 @@ class WebServiceHandler extends WebServiceInterface{
   Future<JSONRecipes> getreceptList() async {
     var requestResponse = await dio.get(
       "recipes.json",
-      onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }
+      /*onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }*/
     );
 
     List<RecipeData> dataList = [];
@@ -43,4 +45,5 @@ class WebServiceHandler extends WebServiceInterface{
 
     return JSONRecipes(dataList);
   }
+  
 }

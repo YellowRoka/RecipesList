@@ -7,14 +7,32 @@ import '../common_parts/universal_button.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-class SearchAppBar extends StatelessWidget {
+class SearchAppBar extends StatefulWidget {
   final AppLocalizations localizations;
   
   const SearchAppBar({Key? key, required this.localizations}) : super(key: key);
 
   @override
+  State<SearchAppBar> createState() => _SearchAppBarState();
+}
+
+class _SearchAppBarState extends State<SearchAppBar> {
+  late TextEditingController controller;
+
+  @override
+  void initState(){
+    controller = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
+  
+  @override
   Widget build( BuildContext context ){
-    final TextEditingController controller = TextEditingController();
 
     return SliverAppBar(
       backgroundColor: colorBacground,
@@ -46,9 +64,10 @@ class SearchAppBar extends StatelessWidget {
             child:   TextField( 
               style:       textStyleBase,
               cursorColor: colorTheme1,
+              controller:  controller,
 
               decoration: InputDecoration(
-                hintText: localizations.textSearchHint,
+                hintText: widget.localizations.textSearchHint,
 
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -61,9 +80,12 @@ class SearchAppBar extends StatelessWidget {
                 )
               ),
 
-              controller: controller,
-              onChanged:  (input) => BlocProvider.of< StateManagerBloc >( context ).add( SMESearch( input ) ),
+              onChanged: (input) => setState( 
+                () => BlocProvider.of< StateManagerBloc >( context ).add( SMESearch( input ) )
+              )
+
             ),
+
           ),
         ]
       ),

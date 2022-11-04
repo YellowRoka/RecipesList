@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,17 +19,20 @@ class BodyBuilder extends StatelessWidget {
     Widget futureChild = Container();
     
     return BlocBuilder< StateManagerBloc, StateManagerState >(
+      buildWhen: (pastState,actualState ){
+        if(pastState is SMSInit && actualState is SMSBack ){
+          exit(0);
+        }
+        return true;
+      },
+
       builder: ( ( context, state ){
 
         if( state is SMSInit ){
           futureChild = Column(
             children: [
-              for(var it in state.recipes.recipes)...[
-                RecipesCards( 
-                  recipe:   it,
-                  callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack() ),
-                  canExit:  true,
-                )
+              for( var it in state.recipes.recipes )...[
+                RecipesCards( recipe: it )
               ]
             ],
           );
@@ -47,20 +52,15 @@ class BodyBuilder extends StatelessWidget {
             children: [
               if(state.foundedRecipes != null )...[
                 for(var it in state.foundedRecipes!)...[
-                  RecipesCards( 
-                    recipe:   it,
-                    callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack() ),
-                    canExit:  false,
-                  )
+                  RecipesCards( recipe: it )
                 ]
               ]
             ],
           );
         }
-        
+
         return SliverToBoxAdapter( child: futureChild );
       }),
     );
   }
 }
-
