@@ -1,5 +1,3 @@
-
-
 import 'package:ff_recept/views/common_parts/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,8 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../bloc/state_manager_bloc.dart';
 import '../common_parts/universal_button.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 class RecipeAppBar extends StatelessWidget {
-  const RecipeAppBar({Key? key}) : super(key: key);
+  final AppLocalizations localizations;
+  
+  const RecipeAppBar({Key? key, required this.localizations}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,16 +31,19 @@ class RecipeAppBar extends StatelessWidget {
         ],
       ),
 
-      flexibleSpace: const FlexibleSpaceBar(
+      flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
-        title:       Text( "Breakfast", style: textStyleBase ),
+        title:       Text( localizations.textBreakfast, style: textStyleBase ),
       ),
 
       actions: [
-        UniversalButton( size: 48, icon: Icons.search,callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEOpenSearchBar() ) ),
+        UniversalButton( 
+          size:     48, 
+          icon:     Icons.search,
+          callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEOpenSearchBar() ) 
+        ),
         const SizedBox( width: 10 )
       ],
     );
   }
 }
-

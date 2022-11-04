@@ -3,10 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/state_manager_bloc.dart';
 import 'default_app_bar.dart';
-import 'searc_app_bar.dart';
+import 'search_app_bar.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
+
 
 class AppBarHandler extends StatelessWidget {
-  const AppBarHandler({Key? key}) : super(key: key);
+  final AppLocalizations localizations;
+
+  const AppBarHandler({Key? key, required this.localizations}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,10 @@ class AppBarHandler extends StatelessWidget {
           isSearchActive = false;
         }
 
-        return( isSearchActive )?( const SearchAppBar() ):( const RecipeAppBar() );
+        return
+        ( isSearchActive                               )?
+        ( SearchAppBar( localizations: localizations ) ):
+        ( RecipeAppBar( localizations: localizations ) );
       },
     );
   }

@@ -6,9 +6,11 @@ abstract class StateManagerState {
 
   List<Object> get props => [];
 }
+
 class SMSInitial extends StateManagerState{
   const SMSInitial();
 }
+
 class SMSInit extends StateManagerState{
   final JSONRecipes recipes;
 

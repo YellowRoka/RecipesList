@@ -1,0 +1,39 @@
+{
+    "@@local": "en",
+
+    "textBreakfast": "Breakfast",
+    "@textBreakfast": {
+        "description": ""
+    },
+
+    "textKcal": "kcal",
+    "@textKcal": {
+        "description": ""
+    },
+
+    "textMinutes": "minutes",
+    "@textMinutes": {
+        "description": ""
+    },
+
+    "textIngredients": "Ingredients",
+    "@textIngredients": {
+        "description": ""
+    },
+
+    "textingredients": "ingredients",
+    "@textingredients": {
+        "description": ""
+    },
+
+    "textPreparation": "Preparation",
+    "@textIngredients": {
+        "description": ""
+    },
+
+    "textSearchHint": "Just start typing here...",
+    "@textSearchHint": {
+        "description": ""
+    }
+
+}

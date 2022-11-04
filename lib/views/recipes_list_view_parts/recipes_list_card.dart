@@ -3,7 +3,7 @@ import 'package:ff_recept/bloc/state_manager_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../model/recipes.dart';
+import '../../data_model/recipes.dart';
 import '../common_parts/theme.dart';
 
 typedef BoolCallback = Future<bool> Function();
@@ -19,22 +19,25 @@ class RecipesCards extends StatefulWidget {
   State<RecipesCards> createState() => _RecipesCardsState();
 }
 
-class _RecipesCardsState extends State<RecipesCards> {
+class _RecipesCardsState extends State< RecipesCards >{
   late Image image;
-  late int   imageHeight = 0;
-  bool       _isLoading  = true;
+  late int   imageHeight;
+  late bool  isLoading;
 
 
   @override
   void initState(){
-    image = Image.network(widget.recipe!.imageUrl, fit: BoxFit.fill);
+    isLoading  = true;
+    imageHeight = 0;
+
+    image = Image.network( widget.recipe!.imageUrl, fit: BoxFit.fill );
 
     image.image
       .resolve( const ImageConfiguration() )
       .addListener( ImageStreamListener(
         ( imageinfo, mounted ){
           setState( (){
-            _isLoading  = false;
+            isLoading   = false;
             imageHeight = imageinfo.image.height;
           });
         }
@@ -49,14 +52,15 @@ class _RecipesCardsState extends State<RecipesCards> {
 
     return WillPopScope(
       onWillPop: () async {
-        widget.callBack; return widget.canExit;
+        widget.callBack; 
+        return widget.canExit;
       },
 
       child: SizedBox(
-        height: 0.0 + imageHeight*0.35,
-        width: MediaQuery.of( context ).size.width,
+        height: 0.0 + imageHeight * 0.35,
+        width:  MediaQuery.of( context ).size.width,
         child: 
-        ( _isLoading  )?
+        ( isLoading                         )?
         ( const CircularProgressIndicator() ):
         ( 
           GestureDetector(
@@ -66,8 +70,8 @@ class _RecipesCardsState extends State<RecipesCards> {
                 children: [
           
                   SizedBox(
-                    height: imageHeight*0.35,
-                    child: image,
+                    height: imageHeight * 0.35,
+                    child:  image,
                   ),
           
                   Column(
@@ -77,7 +81,6 @@ class _RecipesCardsState extends State<RecipesCards> {
                       Container(
                         padding: const EdgeInsets.fromLTRB( 20, 0, 0, 20 ),
                         width:   MediaQuery.of( context ).size.width * 0.60, 
-          
                         child:   Text( widget.recipe!.name, 
                           overflow: TextOverflow.clip, 
                           maxLines: 3,

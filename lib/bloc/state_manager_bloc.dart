@@ -2,8 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import '../cloud_functions/web_handler.dart';
-import '../model/recipe_details.dart';
-import '../model/recipes.dart';
+import '../data_model/recipes.dart';
+import '../data_model/recipe_details.dart';
 
 part 'state_manager_event.dart';
 part 'state_manager_state.dart';

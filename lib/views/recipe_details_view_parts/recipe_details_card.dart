@@ -1,18 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/state_manager_bloc.dart';
-import '../../model/recipe_details.dart';
+import '../../data_model/recipe_details.dart';
 import 'recipe_details_head.dart';
 import 'recipe_details_ingredients_field.dart';
 import 'recipe_details_line.dart';
-import 'recipe_details_preparation_filed.dart';
+import 'recipe_details_preparation_field.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class RecipeDetailsCard extends StatefulWidget {
   final RecipeDetailsData? recipeDetails;
+  final AppLocalizations   localizations;
 
-  const RecipeDetailsCard( {Key? key, this.recipeDetails}) : super(key: key);
+  const RecipeDetailsCard( {Key? key, this.recipeDetails, required this.localizations}) : super(key: key);
 
   @override
   State<RecipeDetailsCard> createState() => _RecipeDetailsCardState();
@@ -20,13 +22,14 @@ class RecipeDetailsCard extends StatefulWidget {
 
 class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
   late Image image;
-  late int   imageHeight = 0;
-  bool       _isLoading  = true;
-
-
+  late int   imageHeight;
+  late bool  isLoading;
 
   @override
   void initState(){
+    imageHeight = 0;
+    isLoading   = true;
+
     image = Image.network(widget.recipeDetails!.imageUrl, fit: BoxFit.fill);
 
     image.image
@@ -34,7 +37,7 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
       .addListener( ImageStreamListener(
         ( imageinfo, mounted ){
           setState( (){
-            _isLoading  = false;
+            isLoading   = false;
             imageHeight = imageinfo.image.height;
           });
         }
@@ -53,25 +56,27 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
         BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack() );
         return false;
       },
+
       child: 
-      ( _isLoading  )?
+      ( isLoading  )?
       ( const CircularProgressIndicator() ):
       ( 
         Column(
           children: [
             SizedBox(
               height: imageHeight*0.35,
-              child: ( 
-                DetailsHead(imageHeight: imageHeight, image: image, recipeDetails: widget.recipeDetails )
+              child:  ( 
+                DetailsHead( imageHeight: imageHeight, image: image, recipeDetails: widget.recipeDetails, localizations: widget.localizations )
               ),
             ),
             
-            DetailsLine(      recipeDetails: widget.recipeDetails              ),
-            IngredientsFiled( ingredients:   widget.recipeDetails!.ingredients ),
-            PreparationFiled( steps:         widget.recipeDetails!.steps       )
+            DetailsLine(      recipeDetails: widget.recipeDetails,              localizations: widget.localizations ),
+            IngredientsField( ingredients:   widget.recipeDetails!.ingredients, localizations: widget.localizations ),
+            PreparationField( steps:         widget.recipeDetails!.steps,       localizations: widget.localizations )
           ],
         )
       )
+
     );
   }
 }

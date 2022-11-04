@@ -5,9 +5,12 @@ import '../../bloc/state_manager_bloc.dart';
 import '../recipe_details_view_parts/recipe_details_card.dart';
 import '../recipes_list_view_parts/recipes_list_card.dart';
 
-class BodyBuilder extends StatelessWidget {
+import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-  const BodyBuilder({Key? key}) : super(key: key);
+class BodyBuilder extends StatelessWidget {
+  final AppLocalizations localizations;
+
+  const BodyBuilder({Key? key, required this.localizations}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +18,8 @@ class BodyBuilder extends StatelessWidget {
     
     return BlocBuilder< StateManagerBloc, StateManagerState >(
       builder: ( ( context, state ){
-        if( state is SMSInit ){
 
+        if( state is SMSInit ){
           futureChild = Column(
             children: [
               for(var it in state.recipes.recipes)...[
@@ -34,7 +37,7 @@ class BodyBuilder extends StatelessWidget {
           FocusScope.of(context).unfocus();
           futureChild = Column(
             children: [
-              RecipeDetailsCard( recipeDetails: state.selectedRecipe ),
+              RecipeDetailsCard( recipeDetails: state.selectedRecipe, localizations: localizations ),
             ],
           );
         }

@@ -1,12 +1,10 @@
-
-
 import 'package:dio/dio.dart';
-import 'package:ff_recept/model/recipe_details.dart';
-import 'package:ff_recept/model/recipes.dart';
+import 'package:ff_recept/data_model/recipe_details.dart';
+import 'package:ff_recept/data_model/recipes.dart';
 
 abstract class WebServiceInterface{
-  Future<JSONRecipeDetails> getReceptdetails( int id );
-  Future<JSONRecipes>       getreceptList();
+  Future< JSONRecipeDetails > getReceptdetails( int id );
+  Future< JSONRecipes >       getreceptList();
 }
 
 class WebServiceHandler extends WebServiceInterface{
@@ -27,6 +25,7 @@ class WebServiceHandler extends WebServiceInterface{
       "recipe_detail/$id.json",
       onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }
     );
+
     return JSONRecipeDetails.fromJson(requestResponse.data);
   }
   
@@ -35,7 +34,8 @@ class WebServiceHandler extends WebServiceInterface{
     var requestResponse = await dio.get(
       "recipes.json",
       onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }
-      );
+    );
+
     List<RecipeData> dataList = [];
     for(var data in requestResponse.data){
       dataList.add( JSONRecipeData.fromJson(data) );
