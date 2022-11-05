@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
           AppLocalizations.delegate,
         ],
         supportedLocales: const [
-          Locale('en', ''), // English, no country code
-          Locale('hu', ''), // Hungarian, no country code
+          Locale('en', ''), /* English, no country code   */
+          Locale('hu', ''), /* Hungarian, no country code */
         ],
         locale: const Locale('en'),
 
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               body: WillPopScope(
                 onWillPop: () async {
                   BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack( /*false*/ ) );
-                  return false;//widget.canExit;
+                  return false;
                 },
 
                 child: CustomScrollView(

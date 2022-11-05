@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data_model/recipes.dart';
+import '../common_parts/CircleLoadingBar.dart';
 import '../common_parts/theme.dart';
 
 class RecipesCards extends StatefulWidget {
@@ -18,12 +19,14 @@ class RecipesCards extends StatefulWidget {
 class _RecipesCardsState extends State< RecipesCards >{
   late Image image;
   late int   imageHeight;
+  late int   imageWidth;
   late bool  isLoading;
 
   @override
   void initState(){
     isLoading   = true;
     imageHeight = 0;
+    imageWidth  = 0;
 
     image = Image.network( widget.recipe!.imageUrl, fit: BoxFit.fill );
 
@@ -34,6 +37,7 @@ class _RecipesCardsState extends State< RecipesCards >{
           setState( (){
             isLoading   = false;
             imageHeight = imageinfo.image.height;
+            imageWidth  = imageinfo.image.width;
           });
         }
       )
@@ -44,20 +48,17 @@ class _RecipesCardsState extends State< RecipesCards >{
 
   @override
   Widget build( BuildContext context ){
-    final Size size = MediaQuery.of(context).size;
-
+    
     return SizedBox(
       height: 0.0 + imageHeight * 0.35,
-      width:  MediaQuery.of( context ).size.width,
       child: 
-      ( isLoading                                             )?
-      ( const CircularProgressIndicator( color: colorTheme1 ) ):
+      ( isLoading                )?
+      ( const CircleLoadingBar() ):
       ( 
         GestureDetector(
           onTap: () => BlocProvider.of< StateManagerBloc >( context ).add( SMERecipeSelect( widget.recipe!.id ) ),
           child: ( 
             Stack(
-              alignment: ( size.width > size.height )?( AlignmentDirectional.center ):( AlignmentDirectional.topStart ),
               children:  [
         
                 SizedBox(
@@ -69,15 +70,17 @@ class _RecipesCardsState extends State< RecipesCards >{
                   mainAxisAlignment:  MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     Container(
                       padding: const EdgeInsets.fromLTRB( 20, 0, 0, 20 ),
-                      width:   MediaQuery.of( context ).size.width * 0.60, 
-                      child:   Text( widget.recipe!.name, 
+                      width:   0.0 + imageWidth *0.18, 
+                      child:   Text( 
+                        widget.recipe!.name, 
                         overflow: TextOverflow.clip, 
                         maxLines: 3,
                         style:    textStyleDetailsHead1
-                      )
-                    ),
+                      ),
+                    )
                   ],
                 )
         

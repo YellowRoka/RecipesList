@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:ff_recept/di/inject.dart';
+import 'package:ff_recept/views/common_parts/CircleLoadingBar.dart';
 import 'package:ff_recept/views/recipe_details_view_parts/recipe_details_card.dart';
 import 'package:ff_recept/views/recipes_list_view_parts/recipes_list_card.dart';
 import 'package:flutter/material.dart';
@@ -15,30 +16,40 @@ import 'package:ff_recept/main.dart';// as app;
 
 void main() async {
   var binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized() as IntegrationTestWidgetsFlutterBinding;
-  testWidgets('Test app start', (WidgetTester tester) async {
-    await configureDependencies();
-    await tester.pumpWidget(const MyApp());
-    await binding.convertFlutterSurfaceToImage();
-    await tester.pumpAndSettle();
+  testWidgets( 'Testing app', (WidgetTester tester) async {
 
+    print("Start app");
+    await configureDependencies();
+    await tester.pumpWidget( const MyApp() );
+
+    print("Find loading bar");
+    await tester.tap(find.byType(CircleLoadingBar).first);
+    await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/loading.png'));
+
+    //await binding.convertFlutterSurfaceToImage();
+
+    print("Show recipes");
+    await tester.pumpAndSettle();
     await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/recipes_list_page.png'));
 
-    //await tester.widgetList(find.byType(RecipesCards).first);
-
+    print("Select the first recipe");
     await tester.tap(find.byType(RecipesCards).first);
-
-    await Future.delayed(const Duration(seconds: 3));
+    //await Future.delayed(const Duration(seconds: 3));
 
     await tester.pumpAndSettle();
      for(int i = 0; i < 4; i++){
       await Future.delayed(const Duration(seconds: 1));
       await tester.pumpAndSettle();
     }
-    await Future.delayed(const Duration(seconds: 3));
+    
+    //await Future.delayed(const Duration(seconds: 3));
 
     await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/selected_recipe_page.png'));
     
-    await binding.takeScreenshot('android_screenshot');
+    //await binding.takeScreenshot('android_screenshot');
+
+
+
 
     //expect(find.byType(RecipesCards), findsWidgets);
 

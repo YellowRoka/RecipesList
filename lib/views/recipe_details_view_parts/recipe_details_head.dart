@@ -7,15 +7,17 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class DetailsHead extends StatelessWidget {
   final int                imageHeight;
+  final int                imageWidth;
   final Image              image;
   final RecipeDetailsData? recipeDetails;
   final AppLocalizations   localizations;
 
-  const DetailsHead({ Key? key, required this.imageHeight, required this.image, required this.recipeDetails, required this.localizations }) : super(key: key);
+  const DetailsHead({ Key? key, required this.imageHeight, required this.image, required this.recipeDetails, required this.localizations, required this.imageWidth }) : super(key: key);
 
   @override
   Widget build( BuildContext context ){
     return Stack(
+      alignment: AlignmentDirectional.center,
       children: [
         _backGroundBox(),
         _details( context ),
@@ -24,10 +26,14 @@ class DetailsHead extends StatelessWidget {
   }
 
 
-  Widget _recipeName() => Text( 
-    recipeDetails!.name, 
-    overflow: TextOverflow.clip, 
-    style:    textStyleDetailsHead1
+  Widget _recipeName() => SizedBox(
+    width:   0.0 + imageWidth *0.16, 
+    child: Text( 
+      recipeDetails!.name, 
+      overflow: TextOverflow.clip, 
+      maxLines: 3,
+      style:    textStyleDetailsHead1
+    ),
   );
 
   Widget _iconisedCreationTime() => Row(
@@ -45,7 +51,7 @@ class DetailsHead extends StatelessWidget {
 
       Container(
         padding: const EdgeInsets.fromLTRB( 20, 0, 0, 20 ),
-        width:   MediaQuery.of( context ).size.width * 0.60, 
+        width:   0.0 + imageWidth *0.35,
         child:   Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

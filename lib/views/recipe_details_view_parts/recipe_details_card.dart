@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/state_manager_bloc.dart';
 import '../../data_model/recipe_details.dart';
-import '../common_parts/theme.dart';
+import '../common_parts/CircleLoadingBar.dart';
 import 'recipe_details_head.dart';
 import 'recipe_details_ingredients_field.dart';
 import 'recipe_details_line.dart';
@@ -24,11 +22,13 @@ class RecipeDetailsCard extends StatefulWidget {
 class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
   late Image image;
   late int   imageHeight;
+  late int   imageWidth;
   late bool  isLoading;
 
   @override
   void initState(){
     imageHeight = 0;
+    imageWidth  = 0;
     isLoading   = true;
 
     image = Image.network( widget.recipeDetails!.imageUrl, fit: BoxFit.fill );
@@ -40,6 +40,7 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
           setState( (){
             isLoading   = false;
             imageHeight = imageinfo.image.height;
+            imageWidth  = imageinfo.image.width;
           });
         }
       )
@@ -53,15 +54,15 @@ class _RecipeDetailsCardState extends State<RecipeDetailsCard> {
 
 
     return 
-      ( isLoading  )?
-      ( const CircularProgressIndicator( color: colorTheme1 ) ):
+      ( isLoading                )?
+      ( const CircleLoadingBar() ):
       ( 
         Column(
           children: [
             SizedBox(
               height: imageHeight*0.35,
               child:  ( 
-                DetailsHead( imageHeight: imageHeight, image: image, recipeDetails: widget.recipeDetails, localizations: widget.localizations )
+                DetailsHead( imageHeight: imageHeight, image: image, recipeDetails: widget.recipeDetails, localizations: widget.localizations, imageWidth: imageWidth, )
               ),
             ),
             

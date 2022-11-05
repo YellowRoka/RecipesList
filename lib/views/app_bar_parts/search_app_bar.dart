@@ -51,43 +51,36 @@ class _SearchAppBarState extends State<SearchAppBar> {
         ],
       ),
 
-      flexibleSpace: Column(
-        mainAxisAlignment:  MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children:[ 
-          const SizedBox( height: 32 ),
-
-          Container(
-            padding: const EdgeInsets.fromLTRB( 1, 1, 10, 1 ),
-            width:   MediaQuery.of(context).size.width * 0.85,
-            height:  56,
-            child:   TextField( 
-              style:       textStyleBase,
-              cursorColor: colorTheme1,
-              controller:  controller,
-
-              decoration: InputDecoration(
-                hintText: widget.localizations.textSearchHint,
-
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide:   const BorderSide( color: colorTheme1 ),
-                ),
-
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide:   const BorderSide( color: colorTheme1 ),
-                )
+      flexibleSpace: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.fromLTRB( 70, 1, 10, 1 ),
+          height:  56,
+          child:   TextField( 
+            style:       textStyleBase,
+            cursorColor: colorTheme1,
+            controller:  controller,
+      
+            decoration: InputDecoration(
+              hintText: widget.localizations.textSearchHint,
+      
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide:   const BorderSide( color: colorTheme1 ),
               ),
-
-              onChanged: (input) => setState( 
-                () => BlocProvider.of< StateManagerBloc >( context ).add( SMESearch( input ) )
+      
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide:   const BorderSide( color: colorTheme1 ),
               )
-
             ),
-
+      
+            onChanged: (input) => setState( 
+              () => BlocProvider.of< StateManagerBloc >( context ).add( SMESearch( input ) )
+            )
+      
           ),
-        ]
+      
+        ),
       ),
     );
   }
