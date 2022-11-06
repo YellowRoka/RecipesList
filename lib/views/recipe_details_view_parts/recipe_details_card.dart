@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data_model/recipe_details.dart';
-import '../common_parts/CircleLoadingBar.dart';
+import '../common_parts/circle_loading_bar.dart';
 import 'recipe_details_head.dart';
 import 'recipe_details_ingredients_field.dart';
 import 'recipe_details_line.dart';

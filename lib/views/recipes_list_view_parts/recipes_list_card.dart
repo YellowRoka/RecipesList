@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data_model/recipes.dart';
-import '../common_parts/CircleLoadingBar.dart';
+import '../common_parts/circle_loading_bar.dart';
 import '../common_parts/theme.dart';
 
 class RecipesCards extends StatefulWidget {

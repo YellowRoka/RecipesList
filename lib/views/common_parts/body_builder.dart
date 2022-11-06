@@ -8,9 +8,8 @@ import '../recipes_list_view_parts/recipes_list_card.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-import 'CircleLoadingBar.dart';
+import 'circle_loading_bar.dart';
 import 'net_error_text_view.dart';
-import 'theme.dart';
 
 class BodyBuilder extends StatelessWidget {
   final AppLocalizations localizations;
