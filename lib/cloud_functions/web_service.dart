@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 abstract class WebServiceInterface{
   Future< JSONRecipeDetails > getReceptdetails( int id );
-  Future< JSONRecipes >       getreceptList();
+  Future<List<RecipeData>>    getreceptList();
 }
 
 @singleton
@@ -27,7 +27,7 @@ class WebService extends WebServiceInterface{
   }
   
   @override
-  Future<JSONRecipes> getreceptList() async {
+  Future<List<RecipeData>> getreceptList() async {
     var requestResponse = await dio.get(
       "recipes.json",
       /*onReceiveProgress: (int recived, int total){ print('Recived: $recived, Total: $total'); }*/
@@ -38,7 +38,7 @@ class WebService extends WebServiceInterface{
       dataList.add( JSONRecipeData.fromJson(data) );
     }    
 
-    return JSONRecipes(dataList);
+    return dataList;
   }
 
 }

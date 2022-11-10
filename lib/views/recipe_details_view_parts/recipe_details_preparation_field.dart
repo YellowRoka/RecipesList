@@ -6,12 +6,12 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class PreparationField extends StatelessWidget {
   final String steps;
-  final AppLocalizations localizations;
 
-  const PreparationField({ Key? key, required this.steps, required this.localizations }) : super(key: key);
+  const PreparationField({ Key? key, required this.steps}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all( 16 ),

@@ -39,7 +39,7 @@ IngredientsData _$IngredientsDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$IngredientsDataToJson(IngredientsData instance) =>
     <String, dynamic>{
-      'ing_measure': instance.ing_measure,
-      'ing_name': instance.ing_name,
-      'ing_unit': instance.ing_unit,
+      'ing_measure': instance.ingMeasure,
+      'ing_name': instance.ingName,
+      'ing_unit': instance.ingUnit,
     };

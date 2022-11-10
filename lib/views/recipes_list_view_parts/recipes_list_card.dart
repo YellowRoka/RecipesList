@@ -24,6 +24,8 @@ class _RecipesCardsState extends State< RecipesCards >{
 
   @override
   void initState(){
+    super.initState();
+    
     isLoading   = true;
     imageHeight = 0;
     imageWidth  = 0;
@@ -42,53 +44,53 @@ class _RecipesCardsState extends State< RecipesCards >{
         }
       )
     );
-
-    super.initState();
   }
 
   @override
   Widget build( BuildContext context ){
     
-    return SizedBox(
-      height: 0.0 + imageHeight * 0.35,
-      child: 
-      ( isLoading                )?
-      ( const CircleLoadingBar() ):
-      ( 
-        GestureDetector(
-          onTap: () => BlocProvider.of< StateManagerBloc >( context ).add( SMERecipeSelect( widget.recipe!.id ) ),
-          child: ( 
-            Stack(
-              children:  [
-        
-                SizedBox(
-                  height: imageHeight * 0.35,
-                  child:  image,
-                ),
-        
-                Column(
-                  mainAxisAlignment:  MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+    return Center(
+      child: SizedBox(
+        height: 0.0 + imageHeight * 0.35,
+        child: 
+        ( isLoading                )?
+        ( const CircleLoadingBar() ):
+        ( 
+          GestureDetector(
+            onTap: () => BlocProvider.of< StateManagerBloc >( context ).add( SMEventRecipeSelect( widget.recipe!.id ) ),
+            child: ( 
+              Stack(
+                children:  [
+          
+                  SizedBox(
+                    height: imageHeight * 0.35,
+                    child:  image,
+                  ),
+          
+                  Column(
+                    mainAxisAlignment:  MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
 
-                    Container(
-                      padding: const EdgeInsets.fromLTRB( 20, 0, 0, 20 ),
-                      width:   0.0 + imageWidth *0.18, 
-                      child:   Text( 
-                        widget.recipe!.name, 
-                        overflow: TextOverflow.clip, 
-                        maxLines: 3,
-                        style:    textStyleDetailsHead1
-                      ),
-                    )
-                  ],
-                )
-        
-              ],
-            )
-          ),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB( 20, 0, 0, 20 ),
+                        width:   0.0 + imageWidth *0.18, 
+                        child:   Text( 
+                          widget.recipe!.name, 
+                          overflow: TextOverflow.clip, 
+                          maxLines: 3,
+                          style:    textStyleDetailsHead1
+                        ),
+                      )
+                    ],
+                  )
+          
+                ],
+              )
+            ),
+          )
         )
-      )
+      ),
     );
   }
 }

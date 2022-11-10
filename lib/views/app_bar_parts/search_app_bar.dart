@@ -7,10 +7,10 @@ import '../common_parts/universal_button.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
-class SearchAppBar extends StatefulWidget {
-  final AppLocalizations localizations;
+class SearchAppBar extends StatefulWidget{
+
   
-  const SearchAppBar({Key? key, required this.localizations}) : super(key: key);
+  const SearchAppBar({Key? key}) : super(key: key);
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
@@ -21,8 +21,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
   @override
   void initState(){
-    controller = TextEditingController();
     super.initState();
+    controller = TextEditingController();
   }
 
   @override
@@ -33,6 +33,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   
   @override
   Widget build( BuildContext context ){
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
 
     return SliverAppBar(
       backgroundColor: colorBacground,
@@ -40,14 +41,14 @@ class _SearchAppBarState extends State<SearchAppBar> {
       expandedHeight:  58,
       leadingWidth:    58,
       floating:        false,
-      pinned:          false,
+      pinned:          true,
       leading:         Row(
         children: [
           const SizedBox( width: 10 ),
           UniversalButton( 
             size:     48,
             icon:     Icons.arrow_back_sharp,
-            callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack() ) ),
+            callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEventBack() ) ),
         ],
       ),
 
@@ -61,7 +62,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
             controller:  controller,
       
             decoration: InputDecoration(
-              hintText: widget.localizations.textSearchHint,
+              hintText: localizations.textSearchHint,
       
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
@@ -75,7 +76,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
             ),
       
             onChanged: (input) => setState( 
-              () => BlocProvider.of< StateManagerBloc >( context ).add( SMESearch( input ) )
+              () => BlocProvider.of< StateManagerBloc >( context ).add( SMEventSearch( input ) )
             )
       
           ),

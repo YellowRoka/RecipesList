@@ -29,11 +29,11 @@ class JSONRecipeDetails extends RecipeDetailsData{
 
 @JsonSerializable()
 class IngredientsData {
-  final int?    ing_measure;
-  final String  ing_name;
-  final String? ing_unit;
+  @JsonKey(name: "ing_measure") final int?    ingMeasure;
+  @JsonKey(name: "ing_name")    final String  ingName;
+  @JsonKey(name: "ing_unit")    final String? ingUnit;
 
-  IngredientsData(this.ing_measure, this.ing_name, this.ing_unit);
+  IngredientsData(this.ingMeasure, this.ingName, this.ingUnit);
 
   dynamic toJson() => _$IngredientsDataToJson(this);
   factory IngredientsData.fromJson(dynamic json) =>_$IngredientsDataFromJson(json);

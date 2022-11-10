@@ -8,26 +8,27 @@ import '../common_parts/universal_button.dart';
 import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class RecipeAppBar extends StatelessWidget {
-  final AppLocalizations localizations;
-  
-  const RecipeAppBar({Key? key, required this.localizations}) : super(key: key);
+
+  const RecipeAppBar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build( BuildContext context ){
+     final AppLocalizations localizations = AppLocalizations.of(context)!;
+
     return SliverAppBar(
       backgroundColor: colorBacground,
       toolbarHeight:   58,
       expandedHeight:  58,
       leadingWidth:    58,
       floating:        false,
-      pinned:          false,
+      pinned:          true,
       leading:         Row(
         children: [
           const SizedBox( width: 10 ),
           UniversalButton( 
             size:     48,
             icon:     Icons.arrow_back_sharp,
-            callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEBack() ) ),
+            callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEventBack() ) ),
         ],
       ),
 
@@ -40,7 +41,7 @@ class RecipeAppBar extends StatelessWidget {
         UniversalButton( 
           size:     48, 
           icon:     Icons.search,
-          callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEOpenSearchBar() ) 
+          callBack: () => BlocProvider.of< StateManagerBloc >( context ).add( const SMEventOpenSearchBar() ) 
         ),
         const SizedBox( width: 10 )
       ],

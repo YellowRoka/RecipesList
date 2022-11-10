@@ -7,33 +7,33 @@ abstract class StateManagerEvent {
   List<Object> get props => [];
 }
 
-class SMEInit extends StateManagerEvent{
-  const SMEInit();
+class SMEventInit extends StateManagerEvent{
+  const SMEventInit();
 }
 
-class SMEBack extends StateManagerEvent{
-  const SMEBack();
+class SMEventBack extends StateManagerEvent{
+  const SMEventBack();
 }
 
-class SMERecipeSelect extends StateManagerEvent{
+class SMEventRecipeSelect extends StateManagerEvent{
   final int id;
 
-  const SMERecipeSelect(this.id);
+  const SMEventRecipeSelect(this.id);
 
   @override
   List<Object> get props => [id];
 }
 
-class SMESearch extends StateManagerEvent{
+class SMEventSearch extends StateManagerEvent{
 
   final String searchItem;
 
-  const SMESearch(this.searchItem);
+  const SMEventSearch(this.searchItem);
 
   @override
   List<Object> get props => [ searchItem ];
 }
 
-class SMEOpenSearchBar extends StateManagerEvent{
-  const SMEOpenSearchBar();
+class SMEventOpenSearchBar extends StateManagerEvent{
+  const SMEventOpenSearchBar();
 }

@@ -12,18 +12,17 @@ import 'circle_loading_bar.dart';
 import 'net_error_text_view.dart';
 
 class BodyBuilder extends StatelessWidget {
-  final AppLocalizations localizations;
-
-  const BodyBuilder({Key? key, required this.localizations}) : super(key: key);
+  const BodyBuilder({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Widget futureChild = Container();
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
     
     return BlocBuilder< StateManagerBloc, StateManagerState >(
-      buildWhen: (pastState,actualState ){
-        if( ( pastState is SMSInit     && actualState is SMSBack ) ||
-            ( pastState is SMSNetError && actualState is SMSBack )
+      buildWhen: ( pastState, actualState ){
+        if( ( pastState is SMStateInit && actualState is SMStateBack ) ||
+            ( pastState is SMSNetError && actualState is SMStateBack )
         ){
           /*
           if( Platform.isAndroid ){
@@ -45,42 +44,41 @@ class BodyBuilder extends StatelessWidget {
       builder:( ( context, state ){
 
         if(state is SMSNetError){
-          futureChild = NetErrorTextView( localizations: localizations );
+          futureChild = const NetErrorTextView();
         }
 
-        if(state is SMSInitial){
+        if(state is SMStateInitial){
           futureChild = const CircleLoadingBar();
         }
 
-        if( state is SMSInit ){
-          futureChild = Column(
-            children: [
-              for( var it in state.recipes.recipes )...[
-                RecipesCards( recipe: it )
-              ]
-            ],
+        if( state is SMStateInit ){
+          futureChild = ListView.builder(
+            shrinkWrap:  true,
+            padding:     EdgeInsets.zero,
+            itemBuilder: (_, index) => RecipesCards(recipe: state.recipes[index]),
+            itemCount:   state.recipes.length,
+            
           );
         }
         
-        if( state is SMSRecipeSelect ){
+        if( state is SMStateRecipeSelect ){
           FocusScope.of(context).unfocus();
           futureChild = Column(
             children: [
-              RecipeDetailsCard( recipeDetails: state.selectedRecipe, localizations: localizations ),
+              RecipeDetailsCard( recipeDetails: state.selectedRecipe ),
             ],
           );
         }
 
-        if( state is SMSSearch ){
-          futureChild = Column(
-            children: [
-              if(state.foundedRecipes != null )...[
-                for(var it in state.foundedRecipes!)...[
-                  RecipesCards( recipe: it )
-                ]
-              ]
-            ],
-          );
+        if( state is SMStateSearch ){
+          if(state.foundedRecipes != null ){
+            futureChild = ListView.builder(
+              shrinkWrap:  true,
+              padding:     EdgeInsets.zero,
+              itemBuilder: (_, index) => RecipesCards(recipe: state.foundedRecipes![index]),
+              itemCount:   state.foundedRecipes!.length,  
+            );
+          }
         }
 
         return SliverToBoxAdapter( child: futureChild );

@@ -7,12 +7,13 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class IngredientsField extends StatelessWidget {
   final List<IngredientsData?>? ingredients;
-  final AppLocalizations        localizations;
-  
-  const IngredientsField({ Key? key, required this.ingredients, required this.localizations }) : super(key: key);
+
+  const IngredientsField({ Key? key, required this.ingredients }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
+
     return Container(
       padding: const EdgeInsets.all(16),
       color:   colorTheme4,
@@ -28,10 +29,10 @@ class IngredientsField extends StatelessWidget {
           for( var it in ingredients! )...[
             Row(
               children: [
-                if( it?.ing_name != null )...[
+                if( it?.ingName != null )...[
                   const Icon( Icons.circle, color: colorTheme5, size: 6 ),
                   const SizedBox( width: 10 ),
-                  Text( it?.ing_name??"", style: textStyleIngredientsSmall ),  
+                  Text( it?.ingName??"", style: textStyleIngredientsSmall ),  
                 ]
               ],
             ),

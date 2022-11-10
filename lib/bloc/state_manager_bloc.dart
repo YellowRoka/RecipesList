@@ -13,17 +13,17 @@ part 'state_manager_state.dart';
 class StateManagerBloc extends Bloc<StateManagerEvent, StateManagerState> {
 
   final WebService  webService;
-  late  JSONRecipes recipesList;
+  late  List<RecipeData> recipesList;
 
   bool isErrorActive = false;
 
-  StateManagerBloc( this. webService ) : super( const SMSInitial() ) {
+  StateManagerBloc( this. webService ) : super( const SMStateInitial() ) {
 
-    on<SMEInit>( (event, emit) async {
+    on<SMEventInit>( (event, emit) async {
       try{
         recipesList = await webService.getreceptList();
         isErrorActive = false;
-        emit( SMSInit(recipesList) ); 
+        emit( SMStateInit(recipesList) ); 
       }
       catch(e){
         isErrorActive = true;
@@ -32,11 +32,11 @@ class StateManagerBloc extends Bloc<StateManagerEvent, StateManagerState> {
       
     });
 
-    on<SMERecipeSelect>( (event, emit) async {
+    on<SMEventRecipeSelect>( (event, emit) async {
       try{
         JSONRecipeDetails selectedRecipe = await webService.getReceptdetails( event.id );
         isErrorActive = false;
-        emit( SMSRecipeSelect( selectedRecipe ) );
+        emit( SMStateRecipeSelect( selectedRecipe ) );
       }
       catch(e){
         isErrorActive = true;
@@ -44,16 +44,16 @@ class StateManagerBloc extends Bloc<StateManagerEvent, StateManagerState> {
       }
     });
 
-    on<SMESearch>( (event, emit){
+    on<SMEventSearch>( (event, emit){
       try{
         List<RecipeData>? foundedRecipes = 
-        recipesList.recipes.where( 
+        recipesList.where( 
           (element) => 
             element.name.toLowerCase().contains( event.searchItem.toLowerCase() ) )
             .toList();
 
         isErrorActive = false;
-        emit( SMSSearch( foundedRecipes ) );
+        emit( SMStateSearch( foundedRecipes ) );
       }
       catch(e){
         isErrorActive = true;
@@ -61,23 +61,23 @@ class StateManagerBloc extends Bloc<StateManagerEvent, StateManagerState> {
       }
     });
 
-    on<SMEBack>( (event, emit) async {
+    on<SMEventBack>( (event, emit) async {
       
       try{
-        emit( const SMSBack() );
+        emit( const SMStateBack() );
         isErrorActive = false;
-        emit( SMSInit(recipesList) );
+        emit( SMStateInit(recipesList) );
       }
       catch(e){
         isErrorActive = true;
-        emit( const SMSBack() );
+        emit( const SMStateBack() );
       }
 
     });
 
-    on<SMEOpenSearchBar>( (event, emit ){
+    on<SMEventOpenSearchBar>( (event, emit ){
       if( !isErrorActive ){
-        emit( const SMSOpenSearchBar() );
+        emit( const SMStateOpenSearchBar() );
       }
     });
 

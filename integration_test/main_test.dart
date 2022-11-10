@@ -24,55 +24,95 @@ void main() async {
     print("Start app");
       await configureDependencies();
       await tester.pumpWidget( const MyApp() );
-      if(Platform.isAndroid) await binding.convertFlutterSurfaceToImage();
-
+/*
     print("Find loading bar");
+    
       await tester.tap(find.byType(CircleLoadingBar).first);
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/1_loading.png'));
 
+      if(Platform.isAndroid) {
+        await binding.convertFlutterSurfaceToImage();
+        await binding.takeScreenshot('1_loading');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/1_loading.png'));
+      }
+      
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/1_loading.png'));
+*/
     print("Show recipes");
-      await tester.pumpAndSettle();
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/2_recipes_list_page.png'));
+      await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
+
+      if(Platform.isAndroid) {
+        await binding.takeScreenshot('2_recipes_list_page');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/2_recipes_list_page.png'));
+      }
+      
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/2_recipes_list_page.png'));
 
     print("Select the first recipe");
       await tester.tap(find.byType(RecipesCards).first);
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
+
       for(int i = 0; i < 4; i++){
         await Future.delayed(const Duration(seconds: 1));
         await tester.pumpAndSettle();
       }
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/3_selected_recipe_page.png'));
+
+      if(Platform.isAndroid) {
+        await binding.takeScreenshot('3_selected_recipe_page');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/3_selected_recipe_page.png'));
+      }
+
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/3_selected_recipe_page.png'));
     
     print("Open Searchbar");
       await tester.tap(find.widgetWithIcon(UniversalButton,Icons.search));
-      await tester.pumpAndSettle();
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/4_open_search_bar.png'));
+      await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
+
+      if(Platform.isAndroid) {
+        await binding.takeScreenshot('4_open_search_bar');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/4_open_search_bar.png'));
+      }
+
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/4_open_search_bar.png'));
 
     print("Search a recipe");
       await tester.enterText(find.byType(TextField), "asparagus");
       for(int i = 0; i < 4; i++){
         await Future.delayed(const Duration(seconds: 1));
-        await tester.pumpAndSettle();
+        await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
       }
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/5_recipes_searched.png'));
+
+      if(Platform.isAndroid) {
+        await binding.takeScreenshot('5_recipes_searched');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/5_recipes_searched.png'));
+      }
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/5_recipes_searched.png'));
 
     print("Select the first searched recipe");
       await tester.tap(find.byType(RecipesCards).first);
 
-      await tester.pumpAndSettle();
+      await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
       for(int i = 0; i < 4; i++){
         await Future.delayed(const Duration(seconds: 1));
         await tester.pumpAndSettle();
       }
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/6_select_searched_recipe.png'));
+
+      if(Platform.isAndroid) {
+        await binding.takeScreenshot('6_select_searched_recipe');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/6_select_searched_recipe.png'));
+      }
+
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/6_select_searched_recipe.png'));
 
     print("Back to recipes list");
       await tester.tap(find.byType(UniversalButton));
-      await tester.pumpAndSettle();
-      await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/7_back_home_page.png'));
-
-
-    if(Platform.isAndroid) await binding.takeScreenshot('android_screenshot');
+      await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
+      
+      if(Platform.isAndroid) {
+        await binding.takeScreenshot('7_back_home_page');
+        await expectLater( find.byType(MaterialApp), matchesGoldenFile('screenshot/7_back_home_page.png'));
+      }
+      
+      if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/7_back_home_page.png'));
 
   });
 }

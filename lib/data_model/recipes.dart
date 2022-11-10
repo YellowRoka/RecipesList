@@ -3,13 +3,13 @@ import 'package:json_annotation/json_annotation.dart';
 part 'recipes.g.dart';
 
 //flutter pub run build_runner watch
-
+/*
 class JSONRecipes{
   final List<RecipeData> recipes;
 
   JSONRecipes(this.recipes);
 }
-
+*/
 class RecipeData{
   final int    id;
   final String imageUrl;

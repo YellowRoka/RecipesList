@@ -10,17 +10,18 @@ class DetailsHead extends StatelessWidget {
   final int                imageWidth;
   final Image              image;
   final RecipeDetailsData? recipeDetails;
-  final AppLocalizations   localizations;
 
-  const DetailsHead({ Key? key, required this.imageHeight, required this.image, required this.recipeDetails, required this.localizations, required this.imageWidth }) : super(key: key);
+  const DetailsHead({ Key? key, required this.imageHeight, required this.image, required this.recipeDetails, required this.imageWidth }) : super(key: key);
 
   @override
   Widget build( BuildContext context ){
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
+
     return Stack(
       alignment: AlignmentDirectional.center,
       children: [
         _backGroundBox(),
-        _details( context ),
+        _details( context, localizations ),
       ],
     );
   }
@@ -36,7 +37,7 @@ class DetailsHead extends StatelessWidget {
     ),
   );
 
-  Widget _iconisedCreationTime() => Row(
+  Widget _iconisedCreationTime(AppLocalizations localizations) => Row(
     children: [
       const Icon( Icons.watch_later_outlined, color: colorTheme2 ),
       const SizedBox( width: 10 ),
@@ -44,7 +45,7 @@ class DetailsHead extends StatelessWidget {
     ]
   );
 
-  Widget _details( BuildContext context ) => Column(
+  Widget _details( BuildContext context, AppLocalizations localizations ) => Column(
     mainAxisAlignment:  MainAxisAlignment.end,
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -58,7 +59,7 @@ class DetailsHead extends StatelessWidget {
 
             _recipeName(),
             const SizedBox( height: 10 ),
-            _iconisedCreationTime()
+            _iconisedCreationTime(localizations)
             
           ],
         )

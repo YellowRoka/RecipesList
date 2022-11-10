@@ -7,12 +7,13 @@ import 'package:flutter_gen/gen_l10n/app_localization.dart';
 
 class DetailsLine extends StatelessWidget {
   final RecipeDetailsData? recipeDetails;
-  final AppLocalizations   localizations;
-  
-  const DetailsLine({ Key? key, required this.recipeDetails, required this.localizations }) : super(key: key);
+
+  const DetailsLine({ Key? key, required this.recipeDetails }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations localizations = AppLocalizations.of(context)!;
+
     return SizedBox(
       height: 50,
       child:  Row(

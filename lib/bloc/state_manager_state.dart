@@ -7,43 +7,43 @@ abstract class StateManagerState {
   List<Object> get props => [];
 }
 
-class SMSInitial extends StateManagerState{
-  const SMSInitial();
+class SMStateInitial extends StateManagerState{
+  const SMStateInitial();
 }
 
-class SMSInit extends StateManagerState{
-  final JSONRecipes recipes;
+class SMStateInit extends StateManagerState{
+  final List<RecipeData> recipes;
 
-  const SMSInit(this.recipes);
+  const SMStateInit(this.recipes);
 
   @override
   List<Object> get props => [ recipes ];
 }
 
-class SMSBack extends StateManagerState{
-  const SMSBack();
+class SMStateBack extends StateManagerState{
+  const SMStateBack();
 }
 
-class SMSRecipeSelect extends StateManagerState{
+class SMStateRecipeSelect extends StateManagerState{
   final RecipeDetailsData selectedRecipe;
 
-  const SMSRecipeSelect(this.selectedRecipe);
+  const SMStateRecipeSelect(this.selectedRecipe);
 
   @override
   List<Object> get props => [selectedRecipe];
 }
 
-class SMSSearch extends StateManagerState{
+class SMStateSearch extends StateManagerState{
   final List<RecipeData>? foundedRecipes;
 
-  const SMSSearch(this.foundedRecipes);
+  const SMStateSearch(this.foundedRecipes);
 
   @override
   List<Object> get props => [ foundedRecipes??"" ];
 }
 
-class SMSOpenSearchBar extends StateManagerState{
-  const SMSOpenSearchBar();
+class SMStateOpenSearchBar extends StateManagerState{
+  const SMStateOpenSearchBar();
 }
 
 class SMSNetError extends StateManagerState{
