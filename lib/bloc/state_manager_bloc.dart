@@ -12,7 +12,7 @@ part 'state_manager_state.dart';
 @injectable
 class StateManagerBloc extends Bloc<StateManagerEvent, StateManagerState> {
 
-  final WebService  webService;
+  final WebService       webService;
   late  List<RecipeData> recipesList;
 
   bool isErrorActive = false;

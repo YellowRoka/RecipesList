@@ -3,18 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/state_manager_bloc.dart';
 import '../../data_model/recipes.dart';
-import '../recipes_list_view_parts/recipes_list_card.dart';
+import '../recipes_list_view_parts/recipes_listview.dart';
 
 
-class SearchRecipesListView extends StatefulWidget {
+class SearchRecipesListView extends StatelessWidget {
 
   const SearchRecipesListView({Key? key}) : super(key: key);
 
-  @override
-  State<SearchRecipesListView> createState() => _SearchRecipesListViewState();
-}
-
-class _SearchRecipesListViewState extends State<SearchRecipesListView> {
   @override
   Widget build(BuildContext context) {
       List<RecipeData> foundedRecipes = [];
@@ -27,12 +22,7 @@ class _SearchRecipesListViewState extends State<SearchRecipesListView> {
           }
         }
 
-        return ListView.builder(
-          shrinkWrap:  true,
-          padding:     EdgeInsets.zero,
-          itemBuilder: (_, index) => RecipesCards(recipe: foundedRecipes[index]),
-          itemCount:   foundedRecipes.length,
-        );
+        return RecipesListView( recipes: foundedRecipes );
       }
     );
   }

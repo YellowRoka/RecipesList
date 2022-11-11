@@ -104,7 +104,8 @@ void main() async {
       if(Platform.isWindows) await expectLater( find.byType(MaterialApp), matchesGoldenFile('golden_files/6_select_searched_recipe.png'));
 
     print("Back to recipes list");
-      await tester.tap(find.byType(UniversalButton));
+      print(find.byType(UniversalButton));
+      await tester.tap(find.byType(UniversalButton).first);
       await tester.pumpAndSettle(const Duration(milliseconds: 2000),EnginePhase.sendSemanticsUpdate, const Duration(minutes: 10) );
       
       if(Platform.isAndroid) {

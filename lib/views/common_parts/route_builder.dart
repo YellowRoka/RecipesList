@@ -44,8 +44,6 @@ class RouteBuilder extends StatelessWidget {
           Navigator.pushNamed( context, "/searching" );
         }
 
-        if( state is SMStateBack  || state is SMStateInit){
-        } 
       } ),
 
       child: const SizedBox( height:1 ),

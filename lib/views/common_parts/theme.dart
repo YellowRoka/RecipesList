@@ -14,7 +14,7 @@ const textStyleIngredientsBig   = TextStyle( color: Colors.grey,  fontFamily: "a
 const textStyleIngredientsSmall = TextStyle( color: Colors.grey,  fontFamily: "arial", fontSize: 14, fontWeight: FontWeight.normal, decoration: TextDecoration.none );
 const textStylePreparationBig   = TextStyle( color: Colors.black, fontFamily: "arial", fontSize: 16, fontWeight: FontWeight.bold,   decoration: TextDecoration.none );
 const textStylePreparationSmall = TextStyle( color: Colors.black, fontFamily: "arial", fontSize: 14, fontWeight: FontWeight.normal, decoration: TextDecoration.none );
-const textStyleBase             = TextStyle( color: Colors.black, fontFamily: "arial", fontWeight: FontWeight.normal  );
+const textStyleBase             = TextStyle( color: Colors.black, fontFamily: "arial",               fontWeight: FontWeight.normal, decoration: TextDecoration.none );
 
 /*
 final appTheme = ThemeData(

@@ -6,8 +6,6 @@ import '../../bloc/state_manager_bloc.dart';
 import '../recipe_details_view_parts/recipe_details_card.dart';
 import '../recipes_list_view_parts/recipes_list_card.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localization.dart';
-
 import 'circle_loading_bar.dart';
 import 'net_error_text_view.dart';
 
@@ -17,7 +15,6 @@ class BodyBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget futureChild = Container();
-    final AppLocalizations localizations = AppLocalizations.of(context)!;
     
     return BlocBuilder< StateManagerBloc, StateManagerState >(
       buildWhen: ( pastState, actualState ){
